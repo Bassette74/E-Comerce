@@ -1,4 +1,3 @@
-//Controler ./Produto Controler.js
 
 // ./controllers/productController.js
 const productService = require('../services/productService');
