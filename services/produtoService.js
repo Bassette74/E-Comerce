@@ -4,13 +4,11 @@ const bcrypt = require('bcrypt');
 var round_salts = 10;
 const db = require('../models');
 
-// ./services/productService.js
 const Product = require('../models/produto');
-
 class ProductService {
-    async create(Nome_Produto, Descricao_Produto, preco_Produto, estoque_Produto) {
+    async create(nome, descricao, preco, estoque) {
         try {
-            const newProduct = await Product.create({ Nome_Produto, Descricao_Produto, preco_Produto, estoque_Produto });
+            const newProduct = await Product.create({ nome, descricao, preco, estoque });
             return newProduct;
         } catch (error) {
             throw error;
@@ -46,4 +44,5 @@ class ProductService {
     }
 }
 
-module.exports = new ProductService();
+// Exporte a classe, não uma instância
+module.exports = ProductService; 

@@ -1,30 +1,31 @@
-// model / produto.js
+// model/produto.js
 
 const Sequelize = require('sequelize');
-module.exports = (sequelize) =>{
-    const Produto = sequelize.define('Produto',{
-        id:{
+
+module.exports = (sequelize) => {
+    const Produto = sequelize.define('Produto', {
+        id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
+            primaryKey: true
         },
-        Nome_Produto:{
+        nome: {
             type: Sequelize.STRING,
             unique: true,
-            allowNull:false
+            allowNull: false
         },
-        Descricao_Produto:{
-            type: Sequelize.DATE,
+        descricao: {
+            type: Sequelize.TEXT, // Pode ser TEXT ou STRING dependendo do tamanho esperado
             allowNull: true
         },
-        preco_Produto:{
+        preco: {
             type: Sequelize.DECIMAL,
-            allowNull:false
+            allowNull: false
         },
-        estoque_Produto:{
-            type: Sequelize.INT,
-            allowNull:false
-        
+        estoque: {
+            type: Sequelize.INTEGER, 
         }
     });
-    return User;
+
+    return Produto; // Certifique-se de que essa linha está correta
 };
