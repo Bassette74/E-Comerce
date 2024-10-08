@@ -1,11 +1,16 @@
-const cartService = require('../services/cartService');
+// ./controllers/CartController.js
+const CartService = require('../services/cartService'); // Corrigido para importar a classe
 
 class CartController {
+    constructor() {
+        this.cartService = new CartService(); // Instanciar o serviço aqui
+    }
+
     // Adiciona um produto à cesta
     async addProduct(req, res) {
         const { userId, productId, quantity } = req.body;
         try {
-            const cart = await cartService.addProduct(userId, productId, quantity);
+            const cart = await this.cartService.criarCarrinho(userId, { productId, quantity }, 0); // Ajustado para usar o método correto
             res.status(201).json(cart);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -17,7 +22,7 @@ class CartController {
         const { id } = req.params; // ID do item na cesta
         const { userId } = req.body;
         try {
-            const result = await cartService.removeProduct(userId, id);
+            const result = await this.cartService.removerCarrinho(userId); // Corrigido para usar o método correto
             if (result) {
                 res.status(204).send();
             } else {
@@ -32,7 +37,7 @@ class CartController {
     async viewCart(req, res) {
         const { userId } = req.body;
         try {
-            const cart = await cartService.viewCart(userId);
+            const cart = await this.cartService.buscarCarrinhoPorUsuario(userId); // Corrigido para usar o método correto
             res.status(200).json(cart);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -40,4 +45,4 @@ class CartController {
     }
 }
 
-module.exports = new CartController();
+module.exports = new CartController(); // Exportando a instância da classe
